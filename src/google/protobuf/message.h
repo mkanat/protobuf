@@ -540,6 +540,9 @@ class PROTOBUF_EXPORT Reflection final {
   // Similar to ReleaseLast() without internal safety and ownershp checks. This
   // method should only be used when the objects are on the same arena or paired
   // with a call to `UnsafeArenaAddAllocatedMessage`.
+  ABSL_DEPRECATED(
+      "Use ReleaseLast() for ownership transfer, or message borrowers for "
+      "temporary moves.")
   Message* UnsafeArenaReleaseLast(Message* message,
                                   const FieldDescriptor* field) const;
 
@@ -556,10 +559,16 @@ class PROTOBUF_EXPORT Reflection final {
 
   // Swap without internal safety and ownership checks. This method should only
   // be used when the objects are on the same arena.
+  ABSL_DEPRECATED(
+      "Use Swap() for ownership transfer, or message borrowers for temporary "
+      "swaps.")
   void UnsafeArenaSwap(Message* lhs, Message* rhs) const;
 
   // SwapFields without internal safety and ownership checks. This method should
   // only be used when the objects are on the same arena.
+  ABSL_DEPRECATED(
+      "Use SwapFields() for ownership transfer, or message borrowers for "
+      "temporary swaps.")
   void UnsafeArenaSwapFields(
       Message* lhs, Message* rhs,
       const std::vector<const FieldDescriptor*>& fields) const;
@@ -739,6 +748,9 @@ class PROTOBUF_EXPORT Reflection final {
   // Similar to `SetAllocatedMessage`, but omits all internal safety and
   // ownership checks.  This method should only be used when the objects are on
   // the same arena or paired with a call to `UnsafeArenaReleaseMessage`.
+  ABSL_DEPRECATED(
+      "Use SetAllocatedMessage() for ownership transfer, or message borrowers "
+      "for temporary moves.")
   void UnsafeArenaSetAllocatedMessage(Message* message, Message* sub_message,
                                       const FieldDescriptor* field) const;
 
@@ -756,6 +768,9 @@ class PROTOBUF_EXPORT Reflection final {
   // Similar to `ReleaseMessage`, but omits all internal safety and ownership
   // checks.  This method should only be used when the objects are on the same
   // arena or paired with a call to `UnsafeArenaSetAllocatedMessage`.
+  ABSL_DEPRECATED(
+      "Use ReleaseMessage() for ownership transfer, or message borrowers for "
+      "temporary moves.")
   Message* UnsafeArenaReleaseMessage(Message* message,
                                      const FieldDescriptor* field,
                                      MessageFactory* factory = nullptr) const;
@@ -892,6 +907,9 @@ class PROTOBUF_EXPORT Reflection final {
   // Similar to AddAllocatedMessage() without internal safety and ownership
   // checks. This method should only be used when the objects are on the same
   // arena or paired with a call to `UnsafeArenaReleaseLast`.
+  ABSL_DEPRECATED(
+      "Use AddAllocatedMessage() for ownership transfer, or message borrowers "
+      "for temporary moves.")
   void UnsafeArenaAddAllocatedMessage(Message* message,
                                       const FieldDescriptor* field,
                                       Message* new_entry) const;

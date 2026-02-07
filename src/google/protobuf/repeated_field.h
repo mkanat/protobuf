@@ -518,6 +518,19 @@ class ABSL_ATTRIBUTE_WARN_UNUSED PROTOBUF_DECLSPEC_EMPTY_BASES
   RepeatedField(internal::InternalMetadataOffset offset,
                 const RepeatedField& rhs);
   RepeatedField(internal::InternalMetadataOffset offset, RepeatedField&& rhs);
+#else
+ABSL_DEPRECATED("Use default constructor instead.")
+explicit RepeatedField(Arena* arena);
+
+RepeatedField(Arena* arena, const RepeatedField& rhs);
+RepeatedField(Arena* arena, RepeatedField&& rhs);
+#endif
+
+#ifndef PROTOBUF_INTERNAL_REMOVE_ARENA_PTRS_REPEATED_FIELD
+  inline Arena* GetArena(bool is_soo) const {
+    return is_soo ? soo_rep_.soo_arena() : heap_rep()->arena;
+  }
+#endif
 
   bool is_soo() const { return soo_rep_.is_soo(); }
   void set_size(int size) {
@@ -545,6 +558,9 @@ class ABSL_ATTRIBUTE_WARN_UNUSED PROTOBUF_DECLSPEC_EMPTY_BASES
   // guarantee that both repeated fields are on the same arena or are on the
   // heap. Swapping between different arenas is disallowed and caught by a
   // ABSL_DCHECK (see API docs for details).
+  ABSL_DEPRECATED(
+      "Use Swap() for ownership transfer, or message borrowers for temporary "
+      "swaps.")
   void UnsafeArenaSwap(RepeatedField* other);
 
   // Copy constructs `n` instances in place into the array `dst`.
